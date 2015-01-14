@@ -12,19 +12,12 @@ setup(
     version = bottle_utils.__version__,
     author = 'Outernet Inc',
     author_email = 'branko@outernet.is',
-    description = ('Assortment of frequently used utilities for Bottle '
-                   'framework'),
+    description = ('AJAX utilities for developing apps with Bottle web framework'),
     license = 'BSD',
     keywords = 'bottle utils i18n http lazy csrf ajax',
     url = 'http://outernet-project.github.io/bottle-utils/',
     packages=find_packages(),
-    long_description="""
-    bottle-utils is a collection of code regularly used in various projects at
-    Outernet Inc (https://www.outernet.is/). It contains methods for working
-    with AJAX, CSRF protection, i18n, and more.
-
-    Documentation can be found at http://outernet-project.github.io/bottle-utils/
-    """,
+    long_description=read('README.rst'),
     install_requires = [
         'bottle==0.12.7',
     ],
