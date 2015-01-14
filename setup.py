@@ -14,7 +14,7 @@ setup(
     author_email = 'branko@outernet.is',
     description = ('AJAX utilities for developing apps with Bottle web framework'),
     license = 'BSD',
-    keywords = 'bottle utils i18n http lazy csrf ajax',
+    keywords = 'bottle utils ajax',
     url = 'http://outernet-project.github.io/bottle-utils/',
     packages=find_packages(),
     long_description=read('README.rst'),
