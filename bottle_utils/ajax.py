@@ -40,29 +40,8 @@ def ajax_only(func):
 def roca_view(full, partial, **defaults):
     """
     Render partal for XHR requests and full template otherwise
-
-    The full template usually represents the page with complete markup
-    (doctype, head, etc), while the partial represents HTML fragments that are
-    suitable for insertion into DOM tree.
-
-    Any extra keyword arguments supplied to this decorator will be treated as
-    default values for the template, similar to Bottle's ``view`` decorator.
-
-    For more information about ROCA, see `roca-style.org`_.
-
-    Example::
-
-        @roca_view('table_page', '_table')
-        def show_table():
-            ....
-
-
-    .. _roca-style.org: http://roca-style.org/faq.html
-
-    :param full:        full template
-    :param partial:     partial template
-    :returns:           wrapped function
     """
+    templ = defaults.pop('template_func', template)
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -74,9 +53,9 @@ def roca_view(full, partial, **defaults):
             if isinstance(result, (dict, DictMixin)):
                 tplvars = defaults.copy()
                 tplvars.update(result)
-                return template(tpl_name, **tplvars)
+                return templ(tpl_name, **tplvars)
             elif result is None:
-                return template(tpl_name, defaults)
+                return templ(tpl_name, defaults)
             return result
         return wrapper
     return decorator
