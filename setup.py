@@ -3,9 +3,11 @@ from setuptools import setup, find_packages
 
 import bottle_utils
 
+
 def read(fname):
     """ Return content of specified file """
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
 
 VERSION = bottle_utils.__version__
 
@@ -14,7 +16,8 @@ setup(
     version=VERSION,
     author='Outernet Inc',
     author_email='branko@outernet.is',
-    description=('AJAX utilities for developing apps with Bottle web framework'),
+    description=('AJAX utilities for developing apps with Bottle web '
+                 'framework'),
     license='BSD',
     keywords='bottle utils ajax',
     url='http://outernet-project.github.io/bottle-utils/',
