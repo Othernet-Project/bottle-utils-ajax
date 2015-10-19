@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 
 import functools
 
-from bottle import request, abort, template, DictMixin
+from bottle import request, abort, template, DictMixin, response
 
 
 def ajax_only(func):
@@ -47,6 +47,14 @@ def roca_view(full, partial, **defaults):
         def wrapper(*args, **kwargs):
             if request.is_xhr:
                 tpl_name = partial
+
+                # This is a workaround for Chrome's unexpected behavior when
+                # using HTML5 push-state and browser's back button, where a
+                # partial is loaded as sole content of the page without any
+                # of the elements that were not returned as part of the
+                # response to the AJAX request.
+                # (see http://stackoverflow.com/a/11393281)
+                response.headers['Cache-Control'] = 'no-store'
             else:
                 tpl_name = full
             result = func(*args, **kwargs)

@@ -15,6 +15,7 @@ try:
 except ImportError:
     import mock
 
+import bottle
 import bottle_utils.ajax as mod
 
 MOD = 'bottle_utils.ajax.'
@@ -89,6 +90,18 @@ def test_roca_custom_template_func(template, request):
     roca_handler()
     assert faux_tpl.called
     assert not template.called
+
+
+@mock.patch(MOD + 'request')
+@mock.patch(MOD + 'response')
+@mock.patch(MOD + 'template')
+def test_cache_header_roca(template, response, request):
+    response.headers = bottle.HeaderDict()
+    handler = mock_handler()
+    faux_tpl = mock.Mock()
+    roca_handler = mod.roca_view('foo', 'bar', template_func=faux_tpl)(handler)
+    roca_handler()
+    assert response.headers['Cache-Control'] == 'no-store'
 
 
 # Integration tests
